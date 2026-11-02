@@ -1,6 +1,6 @@
 /**
  * wheel.js — Колесо милых нематериальных желаний для Вики
- * Только искренняя забота, любовь, нежность и внимание!
+ * Точный список желаний от пользователя с умным переносом строк
  */
 
 class CuteWheel {
@@ -9,16 +9,16 @@ class CuteWheel {
     if (!this.canvas) return;
     this.ctx = this.canvas.getContext('2d');
     
-    // Секторы колеса желаний: исключительно нематериальные (забота, объятия, массаж, внимание)
+    // 8 точных желаний, запрошенных пользователем
     this.items = [
       { text: "Массаж спинки", icon: "💆‍♀️", color: "#FF9EAA" },
-      { text: "1000 поцелуев", icon: "💋", color: "#FFAAC9" },
-      { text: "Вечер обнимашек", icon: "🧸", color: "#FF85A2" },
-      { text: "Кино и пледик", icon: "🎬", color: "#B388FF" },
-      { text: "День Королевы", icon: "👑", color: "#FFD166" },
-      { text: "Кофе в постель", icon: "☕", color: "#80ED99" },
-      { text: "Прогулка под звёздами", icon: "🌌", color: "#7AE7C7" },
-      { text: "Ванна с пеной и релакс", icon: "🛁", color: "#90E0EF" }
+      { text: "100 поцелуев", icon: "💋", color: "#FFAAC9" },
+      { text: "Час обнимашек", icon: "🧸", color: "#FF85A2" },
+      { text: "Вечер нежности", icon: "🌸", color: "#B388FF" },
+      { text: "День королевы", icon: "👑", color: "#FFD166" },
+      { text: "10 причин, почему я тебя люблю", icon: "💌", color: "#80ED99" },
+      { text: "День маленькой принцессы", icon: "🥹", color: "#7AE7C7" },
+      { text: "Три желания", icon: "🎀", color: "#90E0EF" }
     ];
 
     this.numSegments = this.items.length;
@@ -71,23 +71,43 @@ class CuteWheel {
       ctx.lineWidth = 2.5;
       ctx.stroke();
 
-      // Отрисовка текста и иконки в секторе
+      // Отрисовка текста и иконки
       ctx.save();
       ctx.rotate(angleStart + this.anglePerSegment / 2);
       ctx.textAlign = "right";
       ctx.textBaseline = "middle";
       ctx.fillStyle = "#333333";
-      ctx.font = "bold 12.5px 'Comfortaa', sans-serif";
 
-      // Иконка и текст
-      ctx.fillText(`${item.icon} ${item.text}`, radius - 20, 0);
+      // Если текст длинный — рисуем в две аккуратные строчки
+      if (item.text.length > 16) {
+        ctx.font = "bold 10.5px 'Comfortaa', sans-serif";
+        let line1 = "";
+        let line2 = "";
+        if (item.text.includes("10 причин")) {
+          line1 = `${item.icon} 10 причин,`;
+          line2 = "почему я люблю";
+        } else if (item.text.includes("маленькой принцессы")) {
+          line1 = `${item.icon} День маленькой`;
+          line2 = "принцессы";
+        } else {
+          const parts = item.text.split(" ");
+          line1 = `${item.icon} ${parts.slice(0, Math.ceil(parts.length / 2)).join(" ")}`;
+          line2 = parts.slice(Math.ceil(parts.length / 2)).join(" ");
+        }
+        ctx.fillText(line1, radius - 16, -6);
+        ctx.fillText(line2, radius - 16, 8);
+      } else {
+        ctx.font = "bold 12px 'Comfortaa', sans-serif";
+        ctx.fillText(`${item.icon} ${item.text}`, radius - 18, 0);
+      }
+
       ctx.restore();
     }
 
     // Внешнее декоративное кольцо
     ctx.beginPath();
     ctx.arc(0, 0, radius - 8, 0, 2 * Math.PI);
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.85)";
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.9)";
     ctx.lineWidth = 6;
     ctx.stroke();
 

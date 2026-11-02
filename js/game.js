@@ -1,5 +1,6 @@
 /**
  * game.js — Мини-игра "Поймай бананы и поцелуи для миньона"
+ * Рекорд обнулен для Вики!
  */
 
 class CuteMinionGame {
@@ -11,9 +12,12 @@ class CuteMinionGame {
     this.isPlaying = false;
     this.score = 0;
     this.lives = 3;
-    this.highScore = parseInt(localStorage.getItem('minion_game_highscore') || '0', 10);
 
-    // Персонаж (Миньон Боб в корзинке)
+    // Сброс рекорда (обнулен по просьбе пользователя)
+    localStorage.removeItem('minion_game_highscore');
+    this.highScore = 0;
+
+    // Персонаж (Миньон Боб с корзинкой)
     this.player = {
       x: 200,
       y: 0,
@@ -144,10 +148,10 @@ class CuteMinionGame {
     const delta = (currentTime - this.lastTime) / 1000;
     this.lastTime = currentTime;
 
-    // Плавное движение игрока
+    // Плавное следование за курсором
     this.player.x += (this.player.targetX - this.player.x) * 0.25;
 
-    // Спавн падающих предметов
+    // Спавн предметов
     this.spawnTimer += delta;
     if (this.spawnTimer > Math.max(0.45, 1.0 - (this.score / 400))) {
       this.spawnTimer = 0;
@@ -188,10 +192,9 @@ class CuteMinionGame {
         continue;
       }
 
-      // Уход за нижний край экрана
+      // Пропуск сердечка
       if (item.y > this.height + 40) {
         if (!item.isDanger && item.type === 'heart') {
-          // Пропуск сердечка
           this.lives--;
           this.updateHUD();
           if (this.lives <= 0) {
@@ -233,7 +236,7 @@ class CuteMinionGame {
       ctx.restore();
     }
 
-    // Падающие вкусняшки и сердечки
+    // Падающие предметы
     for (let item of this.items) {
       ctx.save();
       ctx.translate(item.x, item.y);
@@ -245,7 +248,7 @@ class CuteMinionGame {
       ctx.restore();
     }
 
-    // Отрисовка игрока (Миньон с корзинкой сердечек)
+    // Игрок (Миньон Боб)
     this.drawPlayer(this.player.x, this.player.y);
   }
 
@@ -254,7 +257,7 @@ class CuteMinionGame {
     ctx.save();
     ctx.translate(x, y);
 
-    // Корзинка / поднос
+    // Корзинка
     ctx.fillStyle = '#FFE0EB';
     ctx.beginPath();
     ctx.roundRect(-36, 12, 72, 14, 6);
@@ -299,7 +302,6 @@ class CuteMinionGame {
   }
 
   drawStartScreen() {
-    // Начальное статичное отображение
     this.drawPlayer(this.width / 2, this.height - 75);
   }
 
@@ -328,7 +330,7 @@ class CuteMinionGame {
     const btn = document.getElementById('game-start-btn');
 
     if (overlay && title && desc && btn) {
-      title.innerText = 'Ты супер-молодец! 💖';
+      title.innerText = 'Викуля, ты супер-молодец! 💖';
       desc.innerHTML = `Твой счёт: <b>${this.score}</b> очков!<br>Рекорд: <b>${this.highScore}</b>.<br>Миньоны отправляют тебе миллион тёплых обнимашек! 🥰`;
       btn.innerText = 'Сыграть ещё раз 🍌';
       overlay.classList.remove('hidden');
