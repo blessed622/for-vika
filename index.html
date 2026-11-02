@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Для Прекрасной Вики ✨ Миньоны & Любовь</title>
+  
+  <!-- Мета-теги для красивого превью в Telegram / WhatsApp / соцсетях -->
+  <meta property="og:title" content="Викуля, этот сайт создан для тебя! 💛🍌">
+  <meta property="og:description" content="Миньоны приготовили для тебя море комплиментов, подарков, музыки и улыбок!">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#FF6B97">
+
+  <!-- Шрифт Comfortaa & Nunito для мягкой, романтичной эстетики -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍌</text></svg>">
+</head>
+<body>
+
+  <!-- Фон: Парящие мыльные пузыри и мерцающие сердечки -->
+  <canvas id="floating-canvas"></canvas>
+
+  <div class="container">
+    
+    <!-- Верхняя плавающая панель (Навигация & Музыка) -->
+    <header class="top-nav">
+      <div class="nav-glass">
+        <a href="#" class="nav-logo">
+          <span class="nav-logo-icon">💖</span>
+          <span>Bello Love</span>
+        </a>
+
+        <!-- Персонализация: имя девушки -->
+        <div class="name-pill-wrapper">
+          <span>Для кого:</span>
+          <input type="text" id="name-input" class="name-input" value="Вика" title="Нажми, чтобы изменить имя" placeholder="Вика">
+        </div>
+
+        <!-- Управление музыкой -->
+        <div class="nav-controls">
+          <button id="music-toggle-btn" class="music-toggle-btn" aria-label="Включить романтичную мелодию">
+            <span class="music-bars">
+              <span></span><span></span><span></span>
+            </span>
+            <span class="music-btn-text">Музыка</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- СЕКЦИЯ 1: Hero (Главный экран) -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="badge-pill">
+          <span>🍌 Спецмиссия миньонов: Дарить улыбку Вике</span>
+        </div>
+        <h1 class="hero-title">
+          Для самой чудесной девушки во Вселенной — 
+          <span id="hero-greeting-name" class="highlight">Вика</span>!
+        </h1>
+        <p class="hero-subtitle">
+          Миньоны собрались здесь с одной важной целью: напомнить тебе, Викуля, насколько ты невероятная, красивая, добрая и бесконечно любимая каждый день! 💛
+        </p>
+
+        <div class="hero-actions">
+          <a href="#section-compliments" class="btn-primary">
+            <span>✨ Порция любви</span>
+          </a>
+          <a href="#section-care" class="btn-secondary">
+            <span>🍌 Погладить миньона</span>
+          </a>
+        </div>
+
+        <div class="hero-quick-stats">
+          <div class="stat-item">
+            <span class="stat-icon">🍌</span>
+            <span>Миллион бананов</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">💖</span>
+            <span>100% нежности</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">👑</span>
+            <span>Твоя улыбка бесценна</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Интерактивный миньон Боб -->
+      <div class="hero-visual">
+        <div class="minion-hero-card">
+          <div class="speech-bubble" id="minion-speech-text">Bello, Викуля! 💛</div>
+          <div id="minion-hero-stage" class="minion-avatar-stage" title="Пощекочи Боба!">
+            <!-- Векторный Боб генерируется скриптом -->
+          </div>
+          
+          <!-- Гардероб миньона -->
+          <div class="minion-wardrobe-pills">
+            <button class="wardrobe-btn" data-acc="flower" title="Цветочек">🌸</button>
+            <button class="wardrobe-btn" data-acc="crown" title="Корона">👑</button>
+            <button class="wardrobe-btn" data-acc="glasses" title="Очки-сердечки">👓</button>
+            <button class="wardrobe-btn" data-acc="catears" title="Кошачьи ушки">🐱</button>
+            <button class="wardrobe-btn" data-acc="banana" title="Бананка">🍌</button>
+          </div>
+          <div class="minion-hint-caption">✨ Кликни на Боба, чтобы пощекотать его!</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 2: Генератор комплиментов -->
+    <section class="section" id="section-compliments">
+      <div class="section-header">
+        <span class="section-tag">Капля тепла для Вики</span>
+        <h2 class="section-title">Генератор нежных слов ✨</h2>
+        <p class="section-subtitle">Нажимай на кнопку, когда захочешь услышать что-то приятное или поднять настроение!</p>
+      </div>
+
+      <div class="compliment-box">
+        <div class="compliment-display-area">
+          <div class="compliment-minion-badge">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="46" fill="#FFF9DE" stroke="#FFD84D" stroke-width="3" />
+              <ellipse cx="50" cy="52" rx="28" ry="32" fill="#FCD022" />
+              <rect x="20" y="42" width="60" height="6" fill="#333" rx="2" />
+              <circle cx="40" cy="45" r="13" fill="#B0B0B0" /><circle cx="40" cy="45" r="9" fill="#FFF" />
+              <circle cx="40" cy="45" r="4" fill="#71A028" /><circle cx="40" cy="45" r="2" fill="#111" />
+              <circle cx="60" cy="45" r="13" fill="#B0B0B0" /><circle cx="60" cy="45" r="9" fill="#FFF" />
+              <circle cx="60" cy="45" r="4" fill="#805128" /><circle cx="60" cy="45" r="2" fill="#111" />
+              <circle cx="32" cy="60" r="4.5" fill="#FF6B97" opacity="0.5" />
+              <circle cx="68" cy="60" r="4.5" fill="#FF6B97" opacity="0.5" />
+              <path d="M 44 63 Q 50 70 56 63" stroke="#7A4B1A" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            </svg>
+          </div>
+          <p id="compliment-text" class="compliment-text">
+            Викуля, нажми кнопку ниже, чтобы миньоны нашептали тебе что-то очень милое! 💌
+          </p>
+          <div id="compliment-author" class="compliment-meta">— Секретная служба миньонов</div>
+        </div>
+
+        <div class="compliment-controls">
+          <button id="btn-generate-compliment" class="btn-compliment-generate">
+            <span>✨ Тянуть комплимент</span>
+          </button>
+        </div>
+
+        <div class="category-chips">
+          <button class="category-chip active" data-cat="all">Все вместе ✨</button>
+          <button class="category-chip" data-cat="minions">С миньонами 🍌</button>
+          <button class="category-chip" data-cat="romantic">Нежность и любовь 💖</button>
+          <button class="category-chip" data-cat="beauty">Красота и сияние 🌸</button>
+          <button class="category-chip" data-cat="support">Поддержка и вера 🌟</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 3: Уход за миньоном Бобом -->
+    <section class="section" id="section-care">
+      <div class="section-header">
+        <span class="section-tag">Интерактивный питомец</span>
+        <h2 class="section-title">Позаботься о Бобе 🥰</h2>
+        <p class="section-subtitle">Боб обожает внимание! Корми его бананами, дари цветочки и поднимай уровень счастья до максимума.</p>
+      </div>
+
+      <div class="care-grid">
+        <div class="care-minion-stage">
+          <div id="care-stage" class="care-stage-svg"></div>
+          
+          <div class="happiness-bar-wrapper">
+            <div class="happiness-label">
+              <span>Счастье миньона:</span>
+              <span id="happiness-percent">85%</span>
+            </div>
+            <div class="happiness-track">
+              <div id="happiness-fill" class="happiness-fill"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pet-action-buttons">
+          <button class="pet-action-btn" data-action="feed">
+            <span class="btn-icon">🍌</span>
+            <span>Дать бананку</span>
+          </button>
+          <button class="pet-action-btn" data-action="hug">
+            <span class="btn-icon">🤗</span>
+            <span>Крепко обнять</span>
+          </button>
+          <button class="pet-action-btn" data-action="flower">
+            <span class="btn-icon">🌸</span>
+            <span>Подарить цветок</span>
+          </button>
+          <button class="pet-action-btn" data-action="crown">
+            <span class="btn-icon">👑</span>
+            <span>Короновать</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 4: Колесо милых желаний и купонов -->
+    <section class="section" id="section-wheel">
+      <div class="section-header">
+        <span class="section-tag">Беспроигрышная игра</span>
+        <h2 class="section-title">Колесо милых желаний для Вики 🎡</h2>
+        <p class="section-subtitle">Крути колесо и забирай приятные купоны, которые можно обменять в реальной жизни в любой момент!</p>
+      </div>
+
+      <div class="wheel-container">
+        <div class="wheel-card">
+          <div class="wheel-stage">
+            <div class="wheel-arrow">
+              <svg viewBox="0 0 40 40" fill="none">
+                <polygon points="20,38 8,10 32,10" fill="#FF4D82" stroke="#FFFFFF" stroke-width="2.5" />
+              </svg>
+            </div>
+            <canvas id="wheel-canvas" width="320" height="320"></canvas>
+            <div class="wheel-center-pin">💖</div>
+          </div>
+
+          <button id="spin-wheel-btn" class="btn-spin-wheel">
+            <span>✨ Крутить колесо желаний</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 5: Мини-игра "Поймай бананы и поцелуи" -->
+    <section class="section" id="section-game">
+      <div class="section-header">
+        <span class="section-tag">Аркадная мини-игра</span>
+        <h2 class="section-title">Поймай бананы и поцелуи 🍌💖</h2>
+        <p class="section-subtitle">Двигай миньона мышкой или пальчиком! Лови бананы (+10), сердечки (+15) и звёздочки (+25), но остерегайся сердитых тучек!</p>
+      </div>
+
+      <div class="game-wrapper">
+        <div class="game-hud">
+          <div class="game-score-box">
+            <span>Счёт:</span>
+            <span id="game-score">0</span>
+          </div>
+          <div class="game-lives-box" id="game-lives">
+            💖💖💖
+          </div>
+        </div>
+
+        <canvas id="game-canvas"></canvas>
+
+        <div id="game-overlay" class="game-overlay">
+          <div style="font-size: 3rem; margin-bottom: 10px;">🍌🥰💖</div>
+          <h3 id="game-overlay-title" class="game-overlay-title">Викуля, готова повеселиться?</h3>
+          <p id="game-overlay-desc" class="game-overlay-desc">
+            Управляй корзинкой миньона: лови все вкусняшки и любовные сердечки!
+          </p>
+          <button id="game-start-btn" class="btn-primary">
+            <span>Начать игру 🚀</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 6: Кнопка SOS (Экстренное поднятие настроения) -->
+    <section class="sos-banner">
+      <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 8px;">Кнопка Экстренного Поднятия Настроения</h2>
+      <p style="color: var(--text-muted); max-width: 520px; margin: 0 auto 15px;">
+        Если вдруг стало грустно, устала или просто захотелось немного волшебства — нажми сюда без раздумий!
+      </p>
+      <button id="sos-big-btn" class="sos-big-btn">
+        <span>🚨 Нажми меня прямо сейчас! 💖</span>
+      </button>
+    </section>
+
+    <!-- СЕКЦИЯ 7: Тайное любовное письмо в конверте -->
+    <section class="section letter-section" id="section-letter">
+      <div class="envelope-wrapper">
+        <div class="envelope-card">
+          <div class="wax-seal">💌</div>
+          <div class="letter-header">
+            <h3 class="letter-to">Для тебя, моя дорогая <span id="letter-recipient-name">Вика</span></h3>
+          </div>
+          <div id="letter-content-text" class="letter-body"></div>
+          <div class="letter-footer">
+            <span>С бесконечной любовью 💛</span>
+            <button id="edit-letter-btn" class="letter-edit-btn">✏️ Редактировать текст</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 8: Полароидные карточки воспоминаний -->
+    <section class="section" id="section-polaroids">
+      <div class="section-header">
+        <span class="section-tag">Тёплые моменты</span>
+        <h2 class="section-title">Галерея нежности 📸</h2>
+        <p class="section-subtitle">Здесь живут прекрасные мгновения. Ты можешь загрузить сюда ваши настоящие совместные фотографии!</p>
+      </div>
+
+      <div class="polaroids-grid">
+        <!-- Полароид 1 -->
+        <div class="polaroid-card">
+          <div class="polaroid-pin"></div>
+          <div class="polaroid-img-frame">
+            <img class="polaroid-img" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 240' fill='%23FFE3EE'><rect width='300' height='240'/><circle cx='150' cy='110' r='55' fill='%23FCD022'/><circle cx='135' cy='105' r='18' fill='%23FFF'/><circle cx='135' cy='105' r='7' fill='%2371A028'/><circle cx='165' cy='105' r='18' fill='%23FFF'/><circle cx='165' cy='105' r='7' fill='%23805128'/><path d='M138 135 Q150 148 162 135' stroke='%237A4B1A' stroke-width='4' fill='none'/><text x='150' y='210' font-size='22' text-anchor='middle' fill='%23FF4D82'>💖 Bello Вика</text></svg>" alt="Милый миньон">
+          </div>
+          <div class="polaroid-caption">Самый счастливый день с Викой ✨</div>
+          <label class="upload-photo-label">
+            Загрузить наше фото
+            <input type="file" accept="image/*" class="photo-upload-input" style="display:none;">
+          </label>
+        </div>
+
+        <!-- Полароид 2 -->
+        <div class="polaroid-card">
+          <div class="polaroid-pin"></div>
+          <div class="polaroid-img-frame">
+            <img class="polaroid-img" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 240' fill='%23FFF0D9'><rect width='300' height='240'/><circle cx='150' cy='120' r='60' fill='%23FF6B97'/><path d='M150 75 C130 50 90 70 90 105 C90 145 150 185 150 185 C150 185 210 145 210 105 C210 70 170 50 150 75 Z' fill='%23FFF'/><text x='150' y='130' font-size='26' text-anchor='middle' fill='%23FF4D82'>Викуля — чудо</text></svg>" alt="Сердечко любви">
+          </div>
+          <div class="polaroid-caption">Твоя улыбка согревает ☀️</div>
+          <label class="upload-photo-label">
+            Загрузить наше фото
+            <input type="file" accept="image/*" class="photo-upload-input" style="display:none;">
+          </label>
+        </div>
+
+        <!-- Полароид 3 -->
+        <div class="polaroid-card">
+          <div class="polaroid-pin"></div>
+          <div class="polaroid-img-frame">
+            <img class="polaroid-img" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 240' fill='%23E8F5E9'><rect width='300' height='240'/><circle cx='150' cy='105' r='50' fill='%23FCD022'/><polygon points='120,60 135,40 150,55 165,40 180,60' fill='%23FFD700'/><text x='150' y='190' font-size='38' text-anchor='middle'>👑🍌</text></svg>" alt="Королева">
+          </div>
+          <div class="polaroid-caption">Вика — Настоящая Королева 👑</div>
+          <label class="upload-photo-label">
+            Загрузить наше фото
+            <input type="file" accept="image/*" class="photo-upload-input" style="display:none;">
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Подвал сайта -->
+    <footer class="footer">
+      <div class="footer-minions-row">
+        <span>🍌</span><span>💖</span><span>👑</span><span>🧸</span><span>🌸</span>
+      </div>
+      <p>Создано специально для Вики с бесконечной нежностью и любовью <span class="footer-heart">❤️</span></p>
+      <p style="font-size: 0.8rem; margin-top: 6px; opacity: 0.7;">Миньоны подтверждают: Викуля — самое дорогое сокровище во Вселенной!</p>
+    </footer>
+
+  </div>
+
+  <!-- Модальное окно: Выигрыш купона -->
+  <div id="coupon-modal" class="modal-overlay">
+    <div class="modal-card">
+      <button id="coupon-modal-close" class="modal-close-btn" aria-label="Закрыть">✕</button>
+      <div id="coupon-icon-badge" class="modal-icon-badge">🎉</div>
+      <h3 class="modal-title">Купон для Вики!</h3>
+      <p id="coupon-result-text" class="modal-desc" style="font-size: 1.4rem; font-weight: 800; color: var(--primary-pink);">
+        Массаж спинки
+      </p>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
+        Этот купон имеет неограниченный срок действия. Предъяви его в любой момент, и твое желание будет немедленно исполнено! 💌
+      </p>
+      <button class="btn-primary" onclick="document.getElementById('coupon-modal').classList.remove('active')">
+        <span>Ура! Сохранить купон 💖</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Модальное окно: SOS Экстренное настроение -->
+  <div id="sos-modal" class="modal-overlay">
+    <div class="modal-card">
+      <button id="sos-modal-close" class="modal-close-btn" aria-label="Закрыть">✕</button>
+      <div class="modal-icon-badge">🤗💖</div>
+      <h3 class="modal-title">Экстренная доза любви для Вики!</h3>
+      <div style="font-size: 1.05rem; line-height: 1.7; color: var(--text-dark); margin-bottom: 20px; text-align: left; background: #FFF9FA; padding: 18px; border-radius: 18px; border: 1.5px solid #FFD4E2;">
+        <p>🌟 <b>Викуля, помни самое главное:</b></p>
+        <ul style="padding-left: 20px; margin-top: 8px;">
+          <li>Ты потрясающая и сильная, у тебя обязательно всё получится!</li>
+          <li>Никакие временные трудности не стоят твоих слёзок.</li>
+          <li>Ты невероятно важна и очень сильно любима.</li>
+          <li>Сделай глубокий вдох, выпей тёплого чая и обними подушку/мишку! 🧸</li>
+        </ul>
+      </div>
+      <button class="btn-primary" onclick="document.getElementById('sos-modal').classList.remove('active')">
+        <span>Спасибо, мне уже лучше! 🥰</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Скрипты приложения -->
+  <script src="js/audio.js"></script>
+  <script src="js/minion-svg.js"></script>
+  <script src="js/compliments.js"></script>
+  <script src="js/wheel.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
