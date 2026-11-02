@@ -34,10 +34,10 @@
           <span>Bello Love</span>
         </a>
 
-        <!-- Персонализация: имя девушки -->
-        <div class="name-pill-wrapper">
-          <span>Для кого:</span>
-          <input type="text" id="name-input" class="name-input" value="Вика" title="Нажми, чтобы изменить имя" placeholder="Вика">
+        <!-- Персонализация: перманентно зафиксировано для Вики -->
+        <div class="name-pill-wrapper permanent-badge">
+          <span class="for-label">Для кого:</span>
+          <span class="for-name">Вика 💖</span>
         </div>
 
         <!-- Управление музыкой -->
@@ -178,6 +178,7 @@
             <div class="happiness-track">
               <div id="happiness-fill" class="happiness-fill"></div>
             </div>
+            <div id="happiness-overflow-badge" class="happiness-overflow-badge">💖 ПЕРЕПОЛНЕНО ЛЮБОВЬЮ! 100% СЧАСТЬЯ! 💖</div>
           </div>
         </div>
 
@@ -202,12 +203,12 @@
       </div>
     </section>
 
-    <!-- СЕКЦИЯ 4: Колесо милых желаний и купонов -->
+    <!-- СЕКЦИЯ 4: Колесо милых нематериальных желаний -->
     <section class="section" id="section-wheel">
       <div class="section-header">
         <span class="section-tag">Беспроигрышная игра</span>
         <h2 class="section-title">Колесо милых желаний для Вики 🎡</h2>
-        <p class="section-subtitle">Крути колесо и забирай приятные купоны, которые можно обменять в реальной жизни в любой момент!</p>
+        <p class="section-subtitle">Исключительно нематериальные желания: забота, нежность, массаж и приятные романтические моменты!</p>
       </div>
 
       <div class="wheel-container">
@@ -291,12 +292,12 @@
       </div>
     </section>
 
-    <!-- СЕКЦИЯ 8: Полароидные карточки воспоминаний -->
+    <!-- СЕКЦИЯ 8: Полароидные карточки с настоящими фотографиями Вики -->
     <section class="section" id="section-polaroids">
       <div class="section-header">
         <span class="section-tag">Тёплые моменты</span>
         <h2 class="section-title">Галерея нежности 📸</h2>
-        <p class="section-subtitle">Здесь живут прекрасные мгновения. Ты можешь загрузить сюда ваши настоящие совместные фотографии!</p>
+        <p class="section-subtitle">Здесь живут наши самые прекрасные и счастливые мгновения!</p>
       </div>
 
       <div class="polaroids-grid">
@@ -304,39 +305,27 @@
         <div class="polaroid-card">
           <div class="polaroid-pin"></div>
           <div class="polaroid-img-frame">
-            <img class="polaroid-img" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 240' fill='%23FFE3EE'><rect width='300' height='240'/><circle cx='150' cy='110' r='55' fill='%23FCD022'/><circle cx='135' cy='105' r='18' fill='%23FFF'/><circle cx='135' cy='105' r='7' fill='%2371A028'/><circle cx='165' cy='105' r='18' fill='%23FFF'/><circle cx='165' cy='105' r='7' fill='%23805128'/><path d='M138 135 Q150 148 162 135' stroke='%237A4B1A' stroke-width='4' fill='none'/><text x='150' y='210' font-size='22' text-anchor='middle' fill='%23FF4D82'>💖 Bello Вика</text></svg>" alt="Милый миньон">
+            <img class="polaroid-img" src="images/vika-1.jpg" alt="Самые счастливые вместе">
           </div>
-          <div class="polaroid-caption">Самый счастливый день с Викой ✨</div>
-          <label class="upload-photo-label">
-            Загрузить наше фото
-            <input type="file" accept="image/*" class="photo-upload-input" style="display:none;">
-          </label>
+          <div class="polaroid-caption">Самые счастливые вместе 💑✨</div>
         </div>
 
         <!-- Полароид 2 -->
         <div class="polaroid-card">
           <div class="polaroid-pin"></div>
           <div class="polaroid-img-frame">
-            <img class="polaroid-img" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 240' fill='%23FFF0D9'><rect width='300' height='240'/><circle cx='150' cy='120' r='60' fill='%23FF6B97'/><path d='M150 75 C130 50 90 70 90 105 C90 145 150 185 150 185 C150 185 210 145 210 105 C210 70 170 50 150 75 Z' fill='%23FFF'/><text x='150' y='130' font-size='26' text-anchor='middle' fill='%23FF4D82'>Викуля — чудо</text></svg>" alt="Сердечко любви">
+            <img class="polaroid-img" src="images/vika-2.jpg" alt="Твой нежный и тёплый взгляд">
           </div>
-          <div class="polaroid-caption">Твоя улыбка согревает ☀️</div>
-          <label class="upload-photo-label">
-            Загрузить наше фото
-            <input type="file" accept="image/*" class="photo-upload-input" style="display:none;">
-          </label>
+          <div class="polaroid-caption">Твой нежный и тёплый взгляд 🕯️🍰</div>
         </div>
 
         <!-- Полароид 3 -->
         <div class="polaroid-card">
           <div class="polaroid-pin"></div>
           <div class="polaroid-img-frame">
-            <img class="polaroid-img" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 240' fill='%23E8F5E9'><rect width='300' height='240'/><circle cx='150' cy='105' r='50' fill='%23FCD022'/><polygon points='120,60 135,40 150,55 165,40 180,60' fill='%23FFD700'/><text x='150' y='190' font-size='38' text-anchor='middle'>👑🍌</text></svg>" alt="Королева">
+            <img class="polaroid-img" src="images/vika-3.jpg" alt="Моя прекрасная Королева">
           </div>
-          <div class="polaroid-caption">Вика — Настоящая Королева 👑</div>
-          <label class="upload-photo-label">
-            Загрузить наше фото
-            <input type="file" accept="image/*" class="photo-upload-input" style="display:none;">
-          </label>
+          <div class="polaroid-caption">Моя прекрасная Королева 👑💖</div>
         </div>
       </div>
     </section>
@@ -362,7 +351,7 @@
         Массаж спинки
       </p>
       <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
-        Этот купон имеет неограниченный срок действия. Предъяви его в любой момент, и твое желание будет немедленно исполнено! 💌
+        Этот купон имеет неограниченный срок действия. Предъяви его в любой момент, и твоё желание будет немедленно исполнено! 💌
       </p>
       <button class="btn-primary" onclick="document.getElementById('coupon-modal').classList.remove('active')">
         <span>Ура! Сохранить купон 💖</span>

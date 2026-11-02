@@ -4,36 +4,63 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Инициализация состояния (по умолчанию имя: Вика)
+  // 1. Инициализация состояния (Имя навсегда зафиксировано: Вика)
   const state = {
-    userName: localStorage.getItem('minion_girl_name') || 'Вика',
+    userName: 'Вика',
     minionHappiness: parseInt(localStorage.getItem('minion_happiness') || '85', 10),
     activeAccessory: 'none',
-    savedCoupons: JSON.parse(localStorage.getItem('minion_saved_coupons') || '[]'),
     activeCategory: 'all'
   };
 
-  // 2. Персонализация имени
-  const nameInput = document.getElementById('name-input');
+  // 2. Персонализация имени (зафиксировано перманентно)
   const greetingNameSpan = document.getElementById('hero-greeting-name');
   const letterToSpan = document.getElementById('letter-recipient-name');
+  if (greetingNameSpan) greetingNameSpan.innerText = 'Вика';
+  if (letterToSpan) letterToSpan.innerText = 'Вика';
 
-  const updateNames = (newName) => {
-    state.userName = newName.trim() || 'Вика';
-    localStorage.setItem('minion_girl_name', state.userName);
-    if (greetingNameSpan) greetingNameSpan.innerText = state.userName;
-    if (letterToSpan) letterToSpan.innerText = state.userName;
+  // 3. Автозапуск музыки при открытии сайта
+  const musicBtn = document.getElementById('music-toggle-btn');
+  
+  const activateMusic = () => {
+    if (!window.cuteAudio.isMusicPlaying) {
+      window.cuteAudio.startMusic();
+      if (musicBtn) {
+        musicBtn.classList.add('playing');
+        const textSpan = musicBtn.querySelector('.music-btn-text');
+        if (textSpan) textSpan.innerText = 'Мелодия играет';
+      }
+    }
   };
 
-  if (nameInput) {
-    nameInput.value = state.userName;
-    updateNames(state.userName);
-    nameInput.addEventListener('input', (e) => {
-      updateNames(e.target.value);
+  // Попытка прямого запуска сразу
+  try {
+    activateMusic();
+  } catch (e) {
+    console.log('Autoplay waiting for first touch/click');
+  }
+
+  // Гарантированный запуск при первом касании / клике / скролле
+  ['click', 'touchstart', 'scroll', 'keydown'].forEach((event) => {
+    window.addEventListener(event, () => {
+      activateMusic();
+    }, { once: true, passive: true });
+  });
+
+  if (musicBtn) {
+    musicBtn.addEventListener('click', () => {
+      window.cuteAudio.toggleMusic((isPlaying) => {
+        if (isPlaying) {
+          musicBtn.classList.add('playing');
+          musicBtn.querySelector('.music-btn-text').innerText = 'Мелодия играет';
+        } else {
+          musicBtn.classList.remove('playing');
+          musicBtn.querySelector('.music-btn-text').innerText = 'Музыка';
+        }
+      });
     });
   }
 
-  // 3. Рендер векторного Боба в Hero и настройка слежения за курсором
+  // 4. Рендер векторного Боба в Hero и настройка слежения за курсором
   MinionRenderer.renderBob('minion-hero-stage', state.activeAccessory);
   MinionRenderer.setupEyeTracking('minion-hero-stage');
 
@@ -75,25 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const randomPhrase = heroSpeeches[Math.floor(Math.random() * heroSpeeches.length)];
       if (heroSpeech) heroSpeech.innerText = randomPhrase;
 
-      // Анимация подпрыгивания
       heroStage.classList.add('bouncing');
       setTimeout(() => heroStage.classList.remove('bouncing'), 400);
-    });
-  }
-
-  // 4. Музыкальная шкатулка
-  const musicBtn = document.getElementById('music-toggle-btn');
-  if (musicBtn) {
-    musicBtn.addEventListener('click', () => {
-      window.cuteAudio.toggleMusic((isPlaying) => {
-        if (isPlaying) {
-          musicBtn.classList.add('playing');
-          musicBtn.querySelector('.music-btn-text').innerText = 'Мелодия играет';
-        } else {
-          musicBtn.classList.remove('playing');
-          musicBtn.querySelector('.music-btn-text').innerText = 'Музыка';
-        }
-      });
     });
   }
 
@@ -106,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const showNewCompliment = () => {
     if (window.cuteAudio) window.cuteAudio.playPop();
 
-    const data = ComplimentDB.getRandomCompliment(state.userName, state.activeCategory);
+    const data = ComplimentDB.getRandomCompliment('Вика', state.activeCategory);
     
     if (complimentText) {
       complimentText.style.opacity = '0';
@@ -136,10 +146,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 6. Уход за миньоном Бобом (Care & Happiness)
+  // 6. Уход за миньоном Бобом (Care & 100% Super Love Explosion)
   const happinessFill = document.getElementById('happiness-fill');
   const happinessPercent = document.getElementById('happiness-percent');
   const careStage = document.getElementById('care-stage');
+  const overflowBadge = document.getElementById('happiness-overflow-badge');
 
   if (careStage) {
     MinionRenderer.renderBob('care-stage', 'flower');
@@ -148,12 +159,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const updateHappiness = (amount) => {
     state.minionHappiness = Math.min(100, Math.max(0, state.minionHappiness + amount));
     localStorage.setItem('minion_happiness', state.minionHappiness);
-    if (happinessFill) happinessFill.style.width = `${state.minionHappiness}%`;
-    if (happinessPercent) happinessPercent.innerText = `${state.minionHappiness}%`;
+    
+    if (happinessFill) {
+      happinessFill.style.width = `${state.minionHappiness}%`;
+      if (state.minionHappiness >= 100) {
+        happinessFill.classList.add('maxed-out');
+        if (overflowBadge) overflowBadge.classList.add('visible');
+      }
+    }
+    if (happinessPercent) {
+      happinessPercent.innerText = `${state.minionHappiness}%`;
+    }
   };
   updateHappiness(0);
 
-  // Кнопки ухода
+  // Кнопки ухода за Бобом
   const petActionButtons = document.querySelectorAll('.pet-action-btn');
   petActionButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -161,6 +181,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const rect = btn.getBoundingClientRect();
       const clientX = rect.left + rect.width / 2;
       const clientY = rect.top;
+
+      // Если счастье уже 100% или достигло 100% — взрыв супер-любви!
+      if (state.minionHappiness >= 100) {
+        triggerSuperLoveFountain(careStage || btn);
+        if (window.cuteAudio) {
+          window.cuteAudio.playSparkle();
+          window.cuteAudio.playGiggle();
+        }
+        if (careStage) {
+          careStage.classList.add('super-excited');
+          setTimeout(() => careStage.classList.remove('super-excited'), 1200);
+        }
+      }
 
       if (action === 'feed') {
         if (window.cuteAudio) window.cuteAudio.playBanana();
@@ -186,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 7. Колесо милых желаний
+  // 7. Колесо милых нематериальных желаний
   const cuteWheel = new CuteWheel('wheel-canvas');
   const spinWheelBtn = document.getElementById('spin-wheel-btn');
   const couponModal = document.getElementById('coupon-modal');
@@ -277,29 +310,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 11. Полароидные карточки с загрузкой фото
-  const photoInputs = document.querySelectorAll('.photo-upload-input');
-  photoInputs.forEach((input) => {
-    input.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const card = input.closest('.polaroid-card');
-          const img = card.querySelector('.polaroid-img');
-          if (img) {
-            img.src = event.target.result;
-            if (window.cuteAudio) window.cuteAudio.playPop();
-          }
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  });
-
-  // 12. Фоновый холст с летающими мыльными пузырями и сердечками
+  // 11. Фоновый холст с летающими мыльными пузырями и сердечками
   initFloatingCanvas();
 });
+
+// ---------------------------------------------------------------------------
+// Фонтан сердечек при 100% радости Боба
+// ---------------------------------------------------------------------------
+function triggerSuperLoveFountain(anchorElement) {
+  const rect = anchorElement.getBoundingClientRect();
+  const startX = rect.left + rect.width / 2;
+  const startY = rect.top + rect.height / 3;
+
+  const heartEmojis = ['💖', '💕', '💗', '💓', '💞', '🌸', '✨', '🥰', '👑', '🍌'];
+
+  for (let i = 0; i < 35; i++) {
+    setTimeout(() => {
+      const heart = document.createElement('div');
+      heart.className = 'fountain-heart';
+      heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+
+      const dx = (Math.random() - 0.5) * 360;
+      const dy = -(120 + Math.random() * 260);
+      const rot = (Math.random() - 0.5) * 180;
+      const size = 20 + Math.random() * 24;
+
+      heart.style.left = `${startX}px`;
+      heart.style.top = `${startY}px`;
+      heart.style.fontSize = `${size}px`;
+      heart.style.setProperty('--dx', `${dx}px`);
+      heart.style.setProperty('--dy', `${dy}px`);
+      heart.style.setProperty('--rot', `${rot}deg`);
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 2100);
+    }, i * 35);
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Фоновый холст с мыльными пузырями и сердечками
@@ -387,9 +435,6 @@ function initFloatingCanvas() {
   loop();
 }
 
-// ---------------------------------------------------------------------------
-// Эффекты частиц и конфетти
-// ---------------------------------------------------------------------------
 function spawnHeartBurst(x, y) {
   const emojis = ['💖', '💕', '💗', '✨', '🥰'];
   for (let i = 0; i < 6; i++) {
